@@ -1,10 +1,6 @@
 <?php
 
 use App\Models\User;
-use App\Models\Article;
-use App\Models\NewsSource;
-use App\Models\NewsCategory;
-use App\Models\NewsAuthor;
 
 it('can fetch news feed with the intended json format', function () {
     $user = User::find(1);
