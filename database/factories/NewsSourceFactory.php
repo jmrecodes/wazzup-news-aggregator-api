@@ -17,7 +17,7 @@ class NewsSourceFactory extends Factory
     public function definition(): array
     {
         return [
-            'source' => fake()->words(fake()->numberBetween(1, 2), true),
+            'source' => fake()->company()
         ];
     }
 }

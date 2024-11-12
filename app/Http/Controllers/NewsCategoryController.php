@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\NewsCategoryRequest;
 use App\Models\NewsCategory;
 use App\Services\NewsCategoryService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -55,9 +56,11 @@ class NewsCategoryController extends Controller
      *     )
      * )
      */
-    public function index(): array
+    public function index(): JsonResponse
     {
-        return $this->newsCategoryService->getNewsCategories();
+        $newsCategories = $this->newsCategoryService->getNewsCategories();
+
+        return response()->json($newsCategories);
     }
 
     /**
@@ -85,7 +88,7 @@ class NewsCategoryController extends Controller
      *     )
      * )
      */
-    public function store(NewsCategoryRequest $request)
+    public function store(NewsCategoryRequest $request): JsonResponse
     {
         $created = $this->newsCategoryService->createNewsCategory($request->all());
 
@@ -116,7 +119,7 @@ class NewsCategoryController extends Controller
      *     )
      * )
      */
-    public function show(NewsCategory $newsCategory)
+    public function show(NewsCategory $newsCategory): NewsCategory
     {
         return $this->newsCategoryService->getNewsCategory($newsCategory);
     }
@@ -151,7 +154,7 @@ class NewsCategoryController extends Controller
      *     )
      * )
      */
-    public function update(Request $request, NewsCategory $newsCategory)
+    public function update(Request $request, NewsCategory $newsCategory): JsonResponse
     {
         $updated = $this->newsCategoryService->updateNewsCategory($request->all(), $newsCategory);
 
@@ -181,7 +184,7 @@ class NewsCategoryController extends Controller
      *     )
      * )
      */
-    public function destroy(NewsCategory $newsCategory)
+    public function destroy(NewsCategory $newsCategory): JsonResponse
     {
         $this->newsCategoryService->deleteNewsCategory($newsCategory);
 

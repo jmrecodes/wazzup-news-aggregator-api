@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\NewsSourceRepositoryInterface;
 use App\Models\NewsSource;
 use App\Models\User;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class NewsSourceRepository extends BaseRepository implements NewsSourceRepositoryInterface
 {

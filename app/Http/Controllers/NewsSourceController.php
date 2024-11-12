@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\NewsSourceRequest;
 use App\Models\NewsSource;
 use App\Services\NewsSourceService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -56,9 +57,11 @@ class NewsSourceController extends Controller
      *     )
      * )
      */
-    public function index(): array
+    public function index(): JsonResponse
     {
-        return $this->newsSourceService->getNewsSources();
+        $newsSources = $this->newsSourceService->getNewsSources();
+
+        return response()->json($newsSources);
     }
 
     /**
@@ -86,7 +89,7 @@ class NewsSourceController extends Controller
      *     )
      * )
      */
-    public function store(NewsSourceRequest $request)
+    public function store(NewsSourceRequest $request): JsonResponse
     {
         $created = $this->newsSourceService->createNewsSource($request->all());
 
@@ -117,7 +120,7 @@ class NewsSourceController extends Controller
      *     )
      * )
      */
-    public function show(NewsSource $newsSource)
+    public function show(NewsSource $newsSource): NewsSource
     {
         return $this->newsSourceService->getNewsSource($newsSource);
     }
@@ -154,7 +157,7 @@ class NewsSourceController extends Controller
      *     )
      * )
      */
-    public function update(Request $request, NewsSource $newsSource)
+    public function update(Request $request, NewsSource $newsSource): JsonResponse
     {
         $updated = $this->newsSourceService->updateNewsSource($request->all(), $newsSource);
 
@@ -184,7 +187,7 @@ class NewsSourceController extends Controller
      *     )
      * )
      */
-    public function destroy(NewsSource $newsSource)
+    public function destroy(NewsSource $newsSource): JsonResponse
     {
         $this->newsSourceService->deleteNewsSource($newsSource);
 

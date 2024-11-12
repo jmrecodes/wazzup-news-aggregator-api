@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\NewsAuthorRequest;
 use App\Models\NewsAuthor;
 use App\Services\NewsAuthorService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -56,9 +57,11 @@ class NewsAuthorController extends Controller
      *     )
      * )
      */
-    public function index(): array
+    public function index(): JsonResponse
     {
-        return $this->newsAuthorService->getNewsAuthors();
+        $newsAuthors = $this->newsAuthorService->getNewsAuthors();
+
+        return response()->json($newsAuthors);
     }
 
     /**
@@ -87,7 +90,7 @@ class NewsAuthorController extends Controller
      *     )
      * )
      */
-    public function store(NewsAuthorRequest $request)
+    public function store(NewsAuthorRequest $request): JsonResponse
     {
         $created = $this->newsAuthorService->createNewsAuthor($request->all());
 
@@ -118,7 +121,7 @@ class NewsAuthorController extends Controller
      *     )
      * )
      */
-    public function show(NewsAuthor $newsAuthor)
+    public function show(NewsAuthor $newsAuthor): NewsAuthor
     {
         return $this->newsAuthorService->getNewsAuthor($newsAuthor);
     }
@@ -154,7 +157,7 @@ class NewsAuthorController extends Controller
      *     )
      * )
      */
-    public function update(Request $request, NewsAuthor $newsAuthor)
+    public function update(Request $request, NewsAuthor $newsAuthor): JsonResponse
     {
         $updated = $this->newsAuthorService->updateNewsAuthor($request->all(), $newsAuthor);
 
@@ -184,7 +187,7 @@ class NewsAuthorController extends Controller
      *     )
      * )
      */
-    public function destroy(NewsAuthor $newsAuthor)
+    public function destroy(NewsAuthor $newsAuthor): JsonResponse
     {
         $this->newsAuthorService->deleteNewsAuthor($newsAuthor);
 

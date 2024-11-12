@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NewsSourceController;
 use App\Http\Controllers\NewsCategoryController;
 use App\Http\Controllers\NewsAuthorController;
+use App\Http\Controllers\UserController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -24,4 +25,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('news-categories', NewsCategoryController::class);
 
     Route::resource('news-authors', NewsAuthorController::class);
+
+    Route::get('/news-feed', [UserController::class, 'newsFeed'])->name('newsfeed');
 });

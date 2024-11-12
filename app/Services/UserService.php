@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Collection;
 
 class UserService
 {
@@ -31,10 +32,15 @@ class UserService
     public function refreshUserToken(User $user): array
     {
         $this->repository->revokeCurrentToken($user);
-        
+
         return [
             'access_token' => $this->repository->refreshToken($user),
             'token_type' => 'Bearer'
         ];
+    }
+
+    public function newsFeed(User $user): Collection
+    {
+        return $this->repository->newsFeed($user);
     }
 }
