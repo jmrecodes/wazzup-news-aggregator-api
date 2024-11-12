@@ -2,19 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
-    /**
-    * @OA\Get(
-    *     path="/register",
-    *     @OA\Response(response="200", description="Display a listing of projects.")
-    * )
-    */
+    private UserService $userService;
 
-    public function register()
+    public function __construct(UserService $userService)
     {
-        return response()->json(['message' => 'Registered successfully']);
+        $this->userService = $userService;
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/news-feed",
+     *     summary="Get user's personalized news feed",
+     *     description="Retrieves articles based on user's preferences including sources, categories, and authors",
+     *     tags={"User"},
+     *     security={{ "sanctum": {} }},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Article")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthenticated"
+     *     )
+     * )
+     */
+    public function newsFeed(Request $request): JsonResponse
+    {
+        $articles = $this->userService->newsFeed($request->user());
+
+        return response()->json($articles);
     }
 }

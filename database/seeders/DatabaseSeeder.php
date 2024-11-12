@@ -3,7 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\NewsPreference;
+use App\Models\NewsSource;
+use App\Models\NewsCategory;
+use App\Models\NewsAuthor;
+use App\Models\Article;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +17,37 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Create 10 users if none exist
+        if (User::count() === 0) {
+            User::factory(10)->create();
+        }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Create 10 news source NewsPreferences if none exist
+        if (NewsSource::count() === 0) {
+            NewsPreference::factory(10)
+                ->forNewsSource()
+                ->create();
+        }
+
+        // Create 10 news category NewsPreferences if none exist
+        if (NewsCategory::count() === 0) {
+            NewsPreference::factory(10)
+                ->forNewsCategory()
+                ->create();
+        }
+
+        // Create 10 news author NewsPreferences if none exist
+        if (NewsAuthor::count() === 0) {
+            NewsPreference::factory(10)
+                ->forNewsAuthor()
+                ->create();
+        }
+
+        // Create 100 articles if none exist
+        if (Article::count() === 0) {
+            Article::factory(10)->newsFeed()->create();
+
+            Article::factory(90)->create();
+        }
     }
 }

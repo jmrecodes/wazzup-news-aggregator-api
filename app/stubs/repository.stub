@@ -2,12 +2,18 @@
 
 namespace App\Repositories;
 
-class {{name}}Repository implements {{name}}Interface
-{
-    protected $model;
+use App\{{name}}Interface;
+use App\Models\{{name}};
 
-    public function __construct()
+class {{name}}Repository extends BaseRepository implements {{name}}Interface
+{
+    protected function setModel()
     {
-        $this->model = new \App\Models\{{name}};
+        $this->model = new {{name}};
+    }
+
+    public function create(array $data): {{name}}
+    {
+        return {{name}}::create($data);
     }
 }
