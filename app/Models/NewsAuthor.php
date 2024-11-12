@@ -14,7 +14,7 @@ class NewsAuthor extends Model
 
     public function users()
     {
-        return $this->morphToMany(User::class, 'morph', 'users_preferences')
+        return $this->morphToMany(User::class, 'morph', 'news_preferences')
                     ->withPivot('news_feed_priority');
     }
 }

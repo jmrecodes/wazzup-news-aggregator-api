@@ -10,7 +10,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -56,29 +58,29 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the news sources for the user's news feed 
-     */ 
+     * Get the news sources for the user's news feed
+     */
     public function newsSources()
     {
-        return $this->morphedByMany(NewsSource::class, 'morph', 'users_preferences')
+        return $this->morphedByMany(NewsSource::class, 'morph', 'news_preferences')
                     ->withPivot('news_feed_priority');
     }
 
     /**
-     * Get the news categories for the user's news feed 
+     * Get the news categories for the user's news feed
      */
     public function newsCategories()
     {
-        return $this->morphedByMany(NewsCategory::class, 'morph', 'users_preferences')
+        return $this->morphedByMany(NewsCategory::class, 'morph', 'news_preferences')
                     ->withPivot('news_feed_priority');
     }
 
     /**
-     * Get the news authors for the user's news feed 
+     * Get the news authors for the user's news feed
      */
     public function newsAuthors()
     {
-        return $this->morphedByMany(NewsAuthor::class, 'morph', 'users_preferences')
+        return $this->morphedByMany(NewsAuthor::class, 'morph', 'news_preferences')
                     ->withPivot('news_feed_priority');
     }
 }

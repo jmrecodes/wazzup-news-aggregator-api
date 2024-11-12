@@ -217,6 +217,215 @@
                 ]
             }
         },
+        "/api/news-sources": {
+            "get": {
+                "tags": [
+                    "News Preferences"
+                ],
+                "summary": "Get list of news sources",
+                "operationId": "6f93e3e8ccf43fac3572b6d3615ddc7a",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/NewsSource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "News Preferences"
+                ],
+                "summary": "Create a new news source",
+                "operationId": "a4fa898a87615f7f4a7c16b8ba4007cc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "source"
+                                ],
+                                "properties": {
+                                    "source": {
+                                        "type": "string",
+                                        "example": "BBC News"
+                                    },
+                                    "priority": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "News source created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsSourceWithUsersData"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/news-sources/{news_source}": {
+            "get": {
+                "tags": [
+                    "News Preferences"
+                ],
+                "summary": "Get specific news source details",
+                "operationId": "fd98ef1c5ee980c1566a2d66cd483d3c",
+                "parameters": [
+                    {
+                        "name": "news_source",
+                        "in": "path",
+                        "description": "News Source ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsSource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "News source not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "News Preferences"
+                ],
+                "summary": "Update an existing news source",
+                "operationId": "cf26ea7ee6d1cdf0a53cb41af09b2e44",
+                "parameters": [
+                    {
+                        "name": "news_source",
+                        "in": "path",
+                        "description": "News Source ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "url": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "News source updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsSource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "News source not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "News Preferences"
+                ],
+                "summary": "Delete a news source",
+                "operationId": "abf3c4f1eb8a10e616b004924a7615d7",
+                "parameters": [
+                    {
+                        "name": "news_source",
+                        "in": "path",
+                        "description": "News Source ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "News source deleted successfully"
+                    },
+                    "404": {
+                        "description": "News source not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/register": {
             "get": {
                 "operationId": "bd20c5f76f8a5a2b2f334b2674fc54e9",
@@ -228,10 +437,90 @@
             }
         }
     },
+    "components": {
+        "schemas": {
+            "NewsSourceWithUsersData": {
+                "title": "News Source With Users",
+                "description": "News Source model with user relationships",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "source": {
+                        "type": "string",
+                        "example": "BBC News"
+                    },
+                    "users": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": "John Doe"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "john@example.com"
+                                },
+                                "pivot": {
+                                    "properties": {
+                                        "news_feed_priority": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "NewsSource": {
+                "title": "News Source",
+                "description": "News Source model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "source": {
+                        "type": "string",
+                        "example": "CNN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-01-01T00:00:00.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-01-01T00:00:00.000000Z"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
     "tags": [
         {
             "name": "Authentication",
             "description": "Endpoints related to user authentication"
+        },
+        {
+            "name": "News Preferences",
+            "description": "Endpoints related to user preferences"
         }
     ]
 }

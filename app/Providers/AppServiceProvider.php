@@ -7,6 +7,10 @@ use App\UserRepositoryInterface;
 use App\Repositories\UserRepository;
 use App\NewsSourceRepositoryInterface;
 use App\Repositories\NewsSourceRepository;
+use App\NewsCategoryRepositoryInterface;
+use App\Repositories\NewsCategoryRepository;
+use App\NewsAuthorRepositoryInterface;
+use App\Repositories\NewsAuthorRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(NewsSourceRepositoryInterface::class, NewsSourceRepository::class);
+        $this->app->bind(NewsCategoryRepositoryInterface::class, NewsCategoryRepository::class);
+        $this->app->bind(NewsAuthorRepositoryInterface::class, NewsAuthorRepository::class);
+
     }
 
     /**
