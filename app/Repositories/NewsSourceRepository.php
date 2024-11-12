@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\NewsSourceRepositoryInterface;
 use App\Models\NewsSource;
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class NewsSourceRepository extends BaseRepository implements NewsSourceRepositoryInterface
 {
@@ -27,9 +28,9 @@ class NewsSourceRepository extends BaseRepository implements NewsSourceRepositor
         return $newSource;
     }
 
-    public function all(): array
+    public function all(): Collection
     {
-        return NewsSource::select('id', 'source')->get()->toArray();
+        return NewsSource::select('id', 'source')->get();
     }
 
     public function find(NewsSource $news_source): NewsSource

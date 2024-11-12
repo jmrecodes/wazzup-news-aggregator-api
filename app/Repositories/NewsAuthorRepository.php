@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\NewsAuthorRepositoryInterface;
 use App\Models\NewsAuthor;
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class NewsAuthorRepository extends BaseRepository implements NewsAuthorRepositoryInterface
 {
@@ -30,7 +31,7 @@ class NewsAuthorRepository extends BaseRepository implements NewsAuthorRepositor
         return $newAuthor;
     }
 
-    public function all(): array
+    public function all(): Collection
     {
         return NewsAuthor::select('id', 'first_name', 'last_name')->get()->toArray();
     }
