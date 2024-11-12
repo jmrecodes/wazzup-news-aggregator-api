@@ -3,13 +3,13 @@
 namespace App;
 
 use App\Models\NewsSource;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Illuminate\Support\Collection;
 
 interface NewsSourceRepositoryInterface
 {
     public function create(array $data): NewsSource;
 
-    public function all(): array;
+    public function all(): Collection;
 
     public function find(NewsSource $id): ?NewsSource;
 

@@ -3,12 +3,13 @@
 namespace App;
 
 use App\Models\NewsCategory;
+use Illuminate\Support\Collection;
 
 interface NewsCategoryRepositoryInterface
 {
     public function create(array $data): NewsCategory;
 
-    public function all(): array;
+    public function all(): Collection;
 
     public function find(NewsCategory $news_category): ?NewsCategory;
 

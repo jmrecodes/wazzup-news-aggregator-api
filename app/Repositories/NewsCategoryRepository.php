@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\NewsCategoryRepositoryInterface;
 use App\Models\NewsCategory;
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class NewsCategoryRepository extends BaseRepository implements NewsCategoryRepositoryInterface
 {
@@ -30,9 +31,9 @@ class NewsCategoryRepository extends BaseRepository implements NewsCategoryRepos
         return $newCategory;
     }
 
-    public function all(): array
+    public function all(): Collection
     {
-        return NewsCategory::select('id', 'category')->get()->toArray();
+        return NewsCategory::select('id', 'category')->get();
     }
 
     public function find(NewsCategory $news_category): NewsCategory
