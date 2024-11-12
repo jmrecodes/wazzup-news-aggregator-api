@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Repositories;
+
+class {{name}}Repository implements {{name}}Interface
+{
+    protected $model;
+
+    public function __construct()
+    {
+        $this->model = new \App\Models\{{name}};
+    }
+}
