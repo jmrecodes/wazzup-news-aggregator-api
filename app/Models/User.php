@@ -47,6 +47,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the preferences for the user's news feed
+     */
+    public function preferences()
+    {
+        return $this->hasMany(NewsPreference::class)
+                    ->orderBy('news_feed_priority');
+    }
+
+
+
+    /**
      * Get the news sources for the user's news feed 
      */ 
     public function newsSources()
@@ -56,11 +67,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the preferences for the user's news feed
+     * Get the news categories for the user's news feed 
      */
-    public function preferences()
+    public function newsCategories()
     {
-        return $this->hasMany(NewsPreference::class)
-                    ->orderBy('news_feed_priority');
+        return $this->morphedByMany(NewsCategory::class, 'morph', 'users_preferences')
+                    ->withPivot('news_feed_priority');
     }
 }

@@ -8,7 +8,7 @@ class NewsSourceService
 {
     protected $repository;
 
-    public function __construct(\App\Repositories\NewsSourceRepository $repository)
+    public function __construct(NewsSourceRepository $repository)
     {
         $this->repository = $repository;
     }

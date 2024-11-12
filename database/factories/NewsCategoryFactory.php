@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\NewsSource>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\NewsCategory>
  */
-class NewsSourceFactory extends Factory
+class NewsCategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class NewsSourceFactory extends Factory
     public function definition(): array
     {
         return [
-            'source' => fake()->words(fake()->numberBetween(1, 2), true),
+            'category' => fake()->words(1, true)
         ];
     }
 }

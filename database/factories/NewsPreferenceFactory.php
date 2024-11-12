@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Models\NewsSource;
+use App\Models\NewsCategory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\NewsPreference>
@@ -34,6 +35,17 @@ class NewsPreferenceFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'morph_id' => $source?->id ?? NewsSource::factory(),
             'morph_type' => NewsSource::class,
+        ]);
+    }
+
+    /**
+     * Indicate that the preference morph is of NewsCategory type.
+     */
+    public function forNewsCategory(NewsCategory $category = null): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'morph_id' => $category?->id ?? NewsCategory::factory(),
+            'morph_type' => NewsCategory::class,
         ]);
     }
 }
