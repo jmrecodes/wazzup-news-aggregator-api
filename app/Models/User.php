@@ -114,7 +114,7 @@ class User extends Authenticatable
                         break;
                     case 'App\Models\NewsCategory':
                         $newsCategory = NewsCategory::find($id)->category;
-                        $articles = Article::$articles = Article::select('id', 'title', 'content', 'created_at', 'updated_at')
+                        $articles = Article::select('id', 'title', 'content', 'created_at', 'updated_at')
                             ->where('category', 'like', "%$newsCategory%")
                             ->limit(3)
                             ->offset($iteration * 3)
@@ -123,7 +123,7 @@ class User extends Authenticatable
                     case 'App\Models\NewsAuthor':
                         $newsAuthor = NewsAuthor::find($id);
 
-                        $articles = Article::$articles = Article::select('id', 'title', 'content', 'created_at', 'updated_at')
+                        $articles = Article::select('id', 'title', 'content', 'created_at', 'updated_at')
                             ->where('author', 'like', "%$newsAuthor->first_name% $newsAuthor->last_name%")
                             ->limit(3)
                             ->offset($iteration * 3)

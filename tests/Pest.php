@@ -12,8 +12,7 @@
 */
 
 pest()->extend(Tests\TestCase::class)
-    ->in('Feature/Auth')
-    ->in('Feature/News');
+    ->in('Feature');
 
 pest()->extend(Tests\TestCase::class)
     ->in('Unit');
