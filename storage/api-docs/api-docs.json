@@ -1,0 +1,24 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://localhost:7700/api"
+        }
+    ],
+    "paths": {
+        "/register": {
+            "get": {
+                "operationId": "bd20c5f76f8a5a2b2f334b2674fc54e9",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of projects."
+                    }
+                }
+            }
+        }
+    }
+}
