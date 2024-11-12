@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\NewsPreference;
 use App\Models\NewsSource;
 use App\Models\NewsCategory;
+use App\Models\NewsAuthor;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,6 +32,13 @@ class DatabaseSeeder extends Seeder
         if (NewsCategory::count() === 0) {
             NewsPreference::factory(10)
                 ->forNewsCategory()
+                ->create();
+        }
+
+        // Create 10 news author NewsPreferences if none exist
+        if (NewsAuthor::count() === 0) {
+            NewsPreference::factory(10)
+                ->forNewsAuthor()
                 ->create();
         }
     }

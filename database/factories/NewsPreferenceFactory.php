@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Models\NewsSource;
 use App\Models\NewsCategory;
+use App\Models\NewsAuthor;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\NewsPreference>
@@ -46,6 +47,17 @@ class NewsPreferenceFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'morph_id' => $category?->id ?? NewsCategory::factory(),
             'morph_type' => NewsCategory::class,
+        ]);
+    }
+
+    /**
+     * Indicate that the preference morph is of NewsAuthor type.
+     */
+    public function forNewsAuthor(NewsAuthor $author = null): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'morph_id' => $author?->id ?? NewsAuthor::factory(),
+            'morph_type' => NewsAuthor::class,
         ]);
     }
 }
