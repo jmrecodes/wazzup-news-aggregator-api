@@ -217,6 +217,209 @@
                 ]
             }
         },
+        "/api/news-categories": {
+            "get": {
+                "tags": [
+                    "News Preferences"
+                ],
+                "summary": "Get list of news categories",
+                "operationId": "afe584edceed4e0971d6a3d4ab4fdeb6",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/NewsCategory"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "News Preferences"
+                ],
+                "summary": "Create a new news category",
+                "operationId": "6343921d3e33f41d67f65eacbd8d11fc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category"
+                                ],
+                                "properties": {
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Technology"
+                                    },
+                                    "priority": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "News category created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsCategoryWithUsersData"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/news-categories/{news_category}": {
+            "get": {
+                "tags": [
+                    "News Preferences"
+                ],
+                "summary": "Get specific news category details",
+                "operationId": "e24188a43b79f0c0aae06590cb272e89",
+                "parameters": [
+                    {
+                        "name": "news_category",
+                        "in": "path",
+                        "description": "News Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsCategory"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "News category not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "News Preferences"
+                ],
+                "summary": "Update an existing news category",
+                "operationId": "2871d99d7277e0b1d4af5fd9568c726e",
+                "parameters": [
+                    {
+                        "name": "news_category",
+                        "in": "path",
+                        "description": "News Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "News category updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsCategory"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "News category not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "News Preferences"
+                ],
+                "summary": "Delete a news category",
+                "operationId": "fc2d6d71a0cff161776719d53f357b2f",
+                "parameters": [
+                    {
+                        "name": "news_category",
+                        "in": "path",
+                        "description": "News Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "News category deleted successfully"
+                    },
+                    "404": {
+                        "description": "News category not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/news-sources": {
             "get": {
                 "tags": [
@@ -439,6 +642,52 @@
     },
     "components": {
         "schemas": {
+            "NewsCategoryWithUsersData": {
+                "title": "News Category With Users",
+                "description": "News Category model with user relationships",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "Technology"
+                    },
+                    "users": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "category": {
+                                    "type": "string",
+                                    "example": "John Doe"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "john@example.com"
+                                },
+                                "pivot": {
+                                    "properties": {
+                                        "news_feed_priority": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "NewsSourceWithUsersData": {
                 "title": "News Source With Users",
                 "description": "News Source model with user relationships",
@@ -481,6 +730,32 @@
                             },
                             "type": "object"
                         }
+                    }
+                },
+                "type": "object"
+            },
+            "NewsCategory": {
+                "title": "News Category",
+                "description": "News Category model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "Technology"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-01-01T00:00:00.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-01-01T00:00:00.000000Z"
                     }
                 },
                 "type": "object"

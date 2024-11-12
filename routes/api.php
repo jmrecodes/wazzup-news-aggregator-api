@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NewsSourceController;
 use App\Http\Controllers\NewsCategoryController;
+use App\Http\Controllers\NewsAuthorController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -21,4 +22,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('news-sources', NewsSourceController::class);
 
     Route::resource('news-categories', NewsCategoryController::class);
+
+    Route::resource('news-authors', NewsAuthorController::class);
 });
