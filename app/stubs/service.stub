@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Repositories\{{ name }}Repository
+use App\Repositories\{{name}}Repository;
 
 class {{name}}Service
 {
     protected $repository;
 
-    public function __construct(\App\Repositories\{{ name }}Repository $repository)
+    public function __construct(\App\Repositories\{{name}}Repository $repository)
     {
         $this->repository = $repository;
     }

@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\UserRepositoryInterface;
 use App\Repositories\UserRepository;
+use App\NewsSourceRepositoryInterface;
+use App\Repositories\NewsSourceRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(NewsSourceRepositoryInterface::class, NewsSourceRepository::class);
     }
 
     /**

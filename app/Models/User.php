@@ -10,7 +10,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -45,5 +44,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the news sources for the user's news feed 
+     */ 
+    public function newsSources()
+    {
+        return $this->morphedByMany(NewsSource::class, 'morph', 'users_preferences')
+                    ->withPivot('news_feed_priority');
+    }
+
+    /**
+     * Get the preferences for the user's news feed
+     */
+    public function preferences()
+    {
+        return $this->hasMany(NewsPreference::class)
+                    ->orderBy('news_feed_priority');
     }
 }
