@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
  * @OA\Tag(name="User", description="Endpoints related to non-auth user actions")
  * @OA\Tag(name="Article Management", description="Endpoints related to article management")
  * @OA\Tag(name="News Preferences", description="Endpoints related to user preferences")
- * @OA\Tag(name="Data Aggregation", description="Endpoints related to data aggregation")
  */
 
 class SwaggerController extends Controller
