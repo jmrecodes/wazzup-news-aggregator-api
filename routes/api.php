@@ -11,6 +11,9 @@ use App\Http\Controllers\UserController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
+
 Route::get('/news', [ArticleController::class, 'index'])->name('articles');
 Route::get('/news/{article}', [ArticleController::class, 'show'])->name('article');
 

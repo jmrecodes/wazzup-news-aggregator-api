@@ -33,7 +33,7 @@ class NewsAuthorRepository extends BaseRepository implements NewsAuthorRepositor
 
     public function all(): Collection
     {
-        return NewsAuthor::select('id', 'first_name', 'last_name')->get()->toArray();
+        return NewsAuthor::select('id', 'first_name', 'last_name')->get();
     }
 
     public function find(NewsAuthor $news_author): NewsAuthor
