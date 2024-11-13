@@ -1,6 +1,6 @@
 # Steps to setup on local machine:
 
-1. Place .env file to the root dir
+1. Place .env file to the root dir or you can use .env.example by running cp .env.example .env
 2. Open terminal on the root dir
 3. Run docker-compose build --no-cache && docker-compose up -d
 4. docker-compose exec app composer install
