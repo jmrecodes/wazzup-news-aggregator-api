@@ -13,4 +13,4 @@
   -e DB_DATABASE=/var/www/html/database/testing.sqlite \
   app php artisan test --env=testing
 10. docker compose exec app php artisan schedule:work (need authenticateed API keys to work)
-11. visit: http://localhost:7700 or http://localhost:7700/api/documentatio
+11. visit: http://localhost:7700 or http://localhost:7700/api/documentation
