@@ -6,7 +6,7 @@
 4. docker-compose exec app composer install
 5. docker-compose exec app php artisan key:generate
 6. docker-compose exec app php artisan --env=testing key:generate
-7. docker-compose exec app php artisan migrate:fresh --seed
+7. docker-compose exec app composer require --dev fakerphp/faker && docker-compose exec app php artisan migrate:fresh --seed
 8. docker-compose exec app php artisan test
 9. docker-compose exec app php artisan schedule:work (need authorized API keys to work)
 10. visit: http://localhost:7700 or http://localhost:7700/api/documentatio
