@@ -15,7 +15,10 @@ RUN apk add --no-cache \
     oniguruma-dev \
     postgresql-dev \
     libxml2-dev \
-    pkgconf
+    pkgconf \
+    sqlite \
+    sqlite-dev \
+    && docker-php-ext-install pdo_sqlite
 
 # Install PHP extensions
 RUN docker-php-ext-configure zip && \
