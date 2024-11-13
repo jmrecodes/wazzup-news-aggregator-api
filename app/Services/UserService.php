@@ -43,4 +43,15 @@ class UserService
     {
         return $this->repository->newsFeed($user);
     }
+
+    public function forgotPassword(string $email): array
+    {
+        $user = $this->repository->findByEmail($email);
+
+        $user->sendPasswordResetNotification($user->createToken('password_reset')->plainTextToken);
+
+        return [
+            'message' => 'We have emailed your password reset link!'
+        ];
+    }
 }

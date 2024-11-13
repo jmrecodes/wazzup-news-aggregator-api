@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable
 {
@@ -137,5 +138,17 @@ class User extends Authenticatable
         }
 
         return $allArticles->unique('id')->values();
+    }
+
+    /**
+     * Send a password reset notification to the user.
+     *
+     * @param  string  $token
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $url = 'https://test.test/reset-password?token='.$token;
+
+        $this->notify(new ResetPasswordNotification($url));
     }
 }

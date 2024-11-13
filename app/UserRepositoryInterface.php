@@ -13,4 +13,6 @@ interface UserRepositoryInterface
     public function revokeCurrentToken(User $user): void;
     public function newsFeed(User $user): Collection;
 
+    public function findByEmail(string $email): User;
+
 }
