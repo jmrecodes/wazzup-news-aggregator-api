@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * @OA\Schema(
@@ -77,4 +78,23 @@ class Article extends Model
         'content',
         'published_at',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updated(function ($article) {
+            Cache::forget('articles_' . $article->id);
+            Cache::forget('articles');
+        });
+
+        static::created(function ($article) {
+            Cache::forget('articles');
+        });
+
+        static::deleted(function ($article) {
+            Cache::forget('articles_' . $article->id);
+            Cache::forget('articles');
+        });
+    }
 }

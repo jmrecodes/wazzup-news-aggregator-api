@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Services\ArticleService;
 use App\Models\Article;
+use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {
@@ -75,10 +76,12 @@ class ArticleController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $perPage = $request->input('per_page', self::DEFAULT_PER_PAGE);
-        $articles = $this->articleService->getArticles($perPage, $request);
+        return Cache::remember('articles', 3600, function () use ($request) {
+            $perPage = $request->input('per_page', self::DEFAULT_PER_PAGE);
+            $articles = $this->articleService->getArticles($perPage, $request);
 
-        return response()->json($articles);
+            return response()->json($articles);
+        });
     }
 
     /**
@@ -106,6 +109,8 @@ class ArticleController extends Controller
      */
     public function show(Article $article): Article
     {
-        return $this->articleService->getArticle($article);
+        return Cache::remember('article_' . $article->id, 3600, function () use ($article) {
+            return $this->articleService->getArticle($article);
+        });
     }
 }

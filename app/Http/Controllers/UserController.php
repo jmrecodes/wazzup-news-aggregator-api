@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Cache;
 use Illuminate\Support\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -39,8 +40,10 @@ class UserController extends Controller
      */
     public function newsFeed(Request $request): JsonResponse
     {
-        $articles = $this->userService->newsFeed($request->user());
+        return Cache::remember('news-feed', 1800, function () use ($request) {
+            $articles = $this->userService->newsFeed($request->user());
 
-        return response()->json($articles);
+            return response()->json($articles);
+        });
     }
 }
