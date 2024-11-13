@@ -7,9 +7,10 @@
 5. docker compose exec app php artisan key:generate
 6. docker compose exec app php artisan --env=testing key:generate
 7. docker compose exec app php artisan migrate:fresh --seed
-8. docker compose exec \
+8. touch database/testing.sqlite
+9. docker compose exec \
   -e DB_CONNECTION=sqlite \
   -e DB_DATABASE=/var/www/html/database/testing.sqlite \
   app php artisan test --env=testing
-9. docker compose exec app php artisan schedule:work (need authenticateed API keys to work)
-10. visit: http://localhost:7700 or http://localhost:7700/api/documentatio
+10. docker compose exec app php artisan schedule:work (need authenticateed API keys to work)
+11. visit: http://localhost:7700 or http://localhost:7700/api/documentatio
